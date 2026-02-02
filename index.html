@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalpage - Weiwei</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* 头部区域 */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .platform {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .tagline {
+            font-size: 18px;
+            color: #7f8c8d;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* 卡片样式 */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: #3498db;
+        }
+        
+        /* 链接列表 */
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+            border-left: 4px solid #3498db;
+        }
+        
+        .link-item:hover {
+            background-color: #e8f4fc;
+            transform: translateX(5px);
+        }
+        
+        .link-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e3f2fd;
+            border-radius: 50%;
+            margin-right: 15px;
+            color: #3498db;
+            font-size: 18px;
+        }
+        
+        .link-text {
+            flex-grow: 1;
+        }
+        
+        .link-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+        
+        .link-url {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        
+        /* 日历区域 */
+        .calendar {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .months {
+            display: flex;
+            gap: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .month {
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .month.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        
+        .day-header {
+            text-align: center;
+            font-weight: 600;
+            color: #7f8c8d;
+            padding: 8px;
+            font-size: 14px;
+        }
+        
+        .day {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .day:hover {
+            background-color: #e8f4fc;
+        }
+        
+        .day.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .day.contributed {
+            background-color: #e1f5fe;
+            color: #0277bd;
+            font-weight: 600;
+        }
+        
+        /* 底部区域 */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: #555;
+            max-width: 60%;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .contributions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contributions-count {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .contributions-text {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        /* Follow按钮 */
+        .follow-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .follow-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .quote {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 5px;
+            }
+            
+            .day {
+                height: 35px;
+                font-size: 14px;
+            }
+            
+            .months {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
+        /* 头部区域 - 已添加头像 */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.platform {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    align-self: flex-start;
+}
+
+.avatar-container {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 4px solid white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.avatar-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.tagline {
+    font-size: 18px;
+    color: #7f8c8d;
+    font-weight: 300;
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 500px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .platform {
+        align-self: center;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+    <div class="platform">Personalpage</div></div>
+    <div class="avatar-container">
+        <img src="" alt="头像" class="avatar">
+    </div>
+    <h1 class="name">Weiwei</h1>
+    <p class="tagline">Patience id key in life.</p>
+</div>
+        
+        <div class="main-content">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-map-signs"></i>My pages</h2>
+                <div class="links-list">
+                    <a href="https://www.lov3u.top" class="link-item" target="_blank">
+                        <div class="link-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="link-text">
+                            <div class="link-name">我的博客 - 记录生活</div>
+                            <div class="link-url">lov3u.top</div>
+                        </div>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    
+                    <a href="https://space.bilibili.com" class="link-item" target="_blank">
+                        <div class="link-icon">
+                            <i class="fab fa-bilibili"></i>
+                        </div>
+                        <div class="link-text">
+                            <div class="link-name">Bilibili空间</div>
+                            <div class="link-url">space.bilibili.com</div>
+                        </div>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    
+                    <a href="https://music.163.com" class="link-item" target="_blank">
+                        <div class="link-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="link-text">
+                            <div class="link-name">网易云音乐</div>
+                            <div class="link-url">music.163.com</div>
+                        </div>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+            
+ 
+        <div class="footer">
+            <div class="quote">
+                "当石匠敲击石头的101次"
+            </div>
+
+</body>
+</html>
